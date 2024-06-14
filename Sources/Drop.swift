@@ -49,13 +49,19 @@ public struct Drop: ExpressibleByStringLiteral {
     action: Action? = nil,
     position: Position = .top,
     duration: Duration = .recommended,
-    accessibility: Accessibility? = nil
+    accessibility: Accessibility? = nil,
+    titleColor: UIColor = .label,
+    subTitleColor: UIColor = UIAccessibility.isDarkerSystemColorsEnabled ? .label : .secondaryLabel,
+    iconColor: UIColor = UIAccessibility.isDarkerSystemColorsEnabled ? .label : .secondaryLabel
   ) {
     self.title = title.trimmingCharacters(in: .whitespacesAndNewlines)
     self.titleNumberOfLines = titleNumberOfLines
     if let subtitle = subtitle?.trimmingCharacters(in: .whitespacesAndNewlines), !subtitle.isEmpty {
       self.subtitle = subtitle
     }
+    self.titleColor = titleColor
+    self.subTitleColor = subTitleColor
+    self.iconColor = iconColor
     self.subtitleNumberOfLines = subtitleNumberOfLines
     self.icon = icon
     self.action = action
@@ -74,6 +80,9 @@ public struct Drop: ExpressibleByStringLiteral {
     position = .top
     duration = .recommended
     accessibility = .init(message: title)
+    titleColor = .label
+    subTitleColor = UIAccessibility.isDarkerSystemColorsEnabled ? .label : .secondaryLabel
+    iconColor = UIAccessibility.isDarkerSystemColorsEnabled ? .label : .secondaryLabel
   }
 
   /// Title.
@@ -102,6 +111,15 @@ public struct Drop: ExpressibleByStringLiteral {
 
   /// Accessibility.
   public var accessibility: Accessibility
+    
+  /// Title Color.
+  public var titleColor: UIColor
+  
+  /// Subtitle Color.
+  public var subTitleColor: UIColor
+  
+  /// Title Color.
+  public var iconColor: UIColor
 }
 
 public extension Drop {
